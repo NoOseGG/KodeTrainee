@@ -3,6 +3,7 @@ package com.example.kodetrainee.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repository.CharacterRepositoryImpl
+import com.example.domain.model.Character
 import com.example.domain.model.Characters
 import com.example.domain.repository.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,7 @@ class FeedViewModel @Inject constructor(
     private val characterRepository: CharacterRepositoryImpl
 ) : ViewModel() {
 
-    val charactersFlow = MutableSharedFlow<Characters>(
+    val charactersFlow = MutableSharedFlow<List<Character>>(
         replay = 1,
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
@@ -25,15 +26,22 @@ class FeedViewModel @Inject constructor(
 
     fun allCharacters() {
         viewModelScope.launch(Dispatchers.IO) {
-            println("11111111111111111111111111111111")
             characterRepository.characters()
                 .onSuccess {
-                    println("SUCCESS")
-                    charactersFlow.tryEmit(it)
+                    charactersFlow.tryEmit(it.results)
                 }
                 .onFailure {
-                    println("222222222222222222222222 ${it.message}")
                 }
         }
+    }
+
+    fun speciesCharacters(species: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            characterRepository.speciesCharacters(species)
+                .onSuccess {
+                    charactersFlow.tryEmit(it.results)
+                }
+        }
+
     }
 }

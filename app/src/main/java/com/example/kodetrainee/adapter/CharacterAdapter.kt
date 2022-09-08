@@ -43,6 +43,7 @@ class CharacterViewHolder(
         with(binding) {
             imgAvatar.load(item.image)
             tvCharacterName.text = item.name
+            tvCharacterSpecies.text = item.species
         }
     }
 }

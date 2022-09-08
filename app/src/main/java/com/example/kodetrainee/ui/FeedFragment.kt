@@ -10,8 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.model.Character
-import com.example.domain.model.Characters
-import com.example.kodetrainee.R
 import com.example.kodetrainee.adapter.CharacterAdapter
 import com.example.kodetrainee.databinding.FragmentFeedBinding
 import com.google.android.material.tabs.TabLayout
@@ -25,8 +23,6 @@ class FeedFragment : Fragment() {
     private var _binding: FragmentFeedBinding? = null
     private val binding get() = requireNotNull(_binding)
     private val viewModel: FeedViewModel by viewModels()
-    private var _characters: List<Character>? = null
-    private val characters get() = requireNotNull(_characters)
     private val adapter by lazy {
         CharacterAdapter()
     }
@@ -46,10 +42,9 @@ class FeedFragment : Fragment() {
 
         initial()
         viewModel.allCharacters()
-        viewModel.charactersFlow.onEach {
-            _characters = it.results
-            println(it.results)
-            adapter.submitList(it.results)
+        viewModel.charactersFlow.onEach { characters ->
+            println(characters)
+            adapter.submitList(characters)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
 
@@ -72,26 +67,26 @@ class FeedFragment : Fragment() {
 
         })
 
+        binding.swipeRefresh.setOnRefreshListener {
+            showToast("Data refreshed")
+            binding.swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun initial() {
         with(binding) {
+            recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             recyclerView.adapter = adapter
-            recyclerView.setHasFixedSize(true)
         }
     }
 
     private fun showAllCharacters() {
-        adapter.submitList(characters)
+        viewModel.allCharacters()
     }
 
     private fun showSpeciesCharacters(species: String) {
-        val speciesList = characters?.filter {
-            it.species == species
-        }
-        adapter.submitList(speciesList)
-        binding.recyclerView.adapter = adapter
+        viewModel.speciesCharacters(species)
     }
 
     override fun onDestroyView() {

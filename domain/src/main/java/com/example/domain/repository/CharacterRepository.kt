@@ -5,4 +5,6 @@ import com.example.domain.model.Characters
 interface CharacterRepository {
 
     suspend fun characters(): Result<Characters>
+
+    suspend fun speciesCharacters(species: String): Result<Characters>
 }

@@ -13,6 +13,7 @@
     <!--Search view-->
     <color name="search_view_background">#F7F7F8</color>
 
-    <!--Card View-->
-    <color name="card_view_background">#BDBDBD</color>
+    <!--Item Character-->
+    <color name="card_view_background">#FFFFFF</color>
+    <color name="tv_character_name_color">#000000</color>
 </resources>
