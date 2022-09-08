@@ -16,6 +16,6 @@
     </style>
     
     <style name="TextTabLayout" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">15sp</item>
     </style>
 </resources>

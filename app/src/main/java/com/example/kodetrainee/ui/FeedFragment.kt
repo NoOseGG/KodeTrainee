@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,6 +17,7 @@ import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 
 @AndroidEntryPoint
 class FeedFragment : Fragment() {
@@ -47,13 +49,28 @@ class FeedFragment : Fragment() {
             adapter.submitList(characters)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.searchCharacters(newText.toString())
+                return false
+            }
+
+        })
+
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position) {
                     ALL -> showAllCharacters()
-                    HUMAN -> showSpeciesCharacters("Human")
-                    ALIEN -> showSpeciesCharacters("Alien")
+                    HUMAN -> showSpeciesCharacters(SPECIES_HUMAN)
+                    ALIEN -> showSpeciesCharacters(SPECIES_ALIEN)
+                    MYTHOLOGICAL -> showSpeciesCharacters(SPECIES_MYTHOLOGICAL)
+                    UNKNOWN -> showSpeciesCharacters(SPECIES_UNKNOWN)
                 }
             }
 
@@ -62,7 +79,7 @@ class FeedFragment : Fragment() {
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                TODO("Not yet implemented")
+
             }
 
         })
@@ -102,5 +119,12 @@ class FeedFragment : Fragment() {
         const val ALL = 0
         const val HUMAN = 1
         const val ALIEN = 2
+        const val MYTHOLOGICAL = 3
+        const val UNKNOWN = 4
+
+        const val SPECIES_HUMAN = "Human"
+        const val SPECIES_ALIEN = "Alien"
+        const val SPECIES_MYTHOLOGICAL = "Mythological"
+        const val SPECIES_UNKNOWN = "Unknown"
     }
 }

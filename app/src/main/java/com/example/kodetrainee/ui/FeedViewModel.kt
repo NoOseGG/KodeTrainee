@@ -42,6 +42,14 @@ class FeedViewModel @Inject constructor(
                     charactersFlow.tryEmit(it.results)
                 }
         }
+    }
 
+    fun searchCharacters(query: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            characterRepository.searchCharacters(query)
+                .onSuccess {
+                    charactersFlow.tryEmit(it.results)
+                }
+        }
     }
 }

@@ -20,4 +20,10 @@ class CharacterRepositoryImpl @Inject constructor(
             rickAndMortyService.speciesCharacters(species)
         }
     }
+
+    override suspend fun searchCharacters(query: String): Result<Characters> {
+        return runCatching {
+            rickAndMortyService.searchCharacters(query)
+        }
+    }
 }

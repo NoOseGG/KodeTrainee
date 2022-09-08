@@ -15,4 +15,9 @@ interface RickAndMortyService {
         @Query("species") species: String
     ): Characters
 
+    @GET("character")
+    suspend fun searchCharacters(
+        @Query("name") query: String
+    ): Characters
+
 }
