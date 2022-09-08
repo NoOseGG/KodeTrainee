@@ -14,4 +14,8 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
     </style>
+    
+    <style name="TextTabLayout" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

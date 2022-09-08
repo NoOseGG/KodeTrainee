@@ -22,42 +22,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabMode="scrollable"
+        app:tabTextAppearance="@style/TextTabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_view">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All"/>
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_designers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Designers"/>
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_analytics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Analytics"/>
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_managers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Managers"/>
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_ios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="iOs"/>
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Android"/>
