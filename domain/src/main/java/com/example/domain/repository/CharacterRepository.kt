@@ -1,6 +1,8 @@
 package com.example.domain.repository
 
+import com.example.domain.model.Characters
+
 interface CharacterRepository {
 
-    fun characters(): Result<List<Character>>
+    suspend fun characters(): Result<Characters>
 }
