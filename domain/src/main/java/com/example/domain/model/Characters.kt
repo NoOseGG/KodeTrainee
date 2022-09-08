@@ -1,5 +1,5 @@
 package com.example.domain.model
 
 data class Characters(
-    val result: List<Character>
+    val results: List<Character>
 )

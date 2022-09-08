@@ -25,9 +25,14 @@ class FeedViewModel @Inject constructor(
 
     fun allCharacters() {
         viewModelScope.launch(Dispatchers.IO) {
+            println("11111111111111111111111111111111")
             characterRepository.characters()
                 .onSuccess {
+                    println("SUCCESS")
                     charactersFlow.tryEmit(it)
+                }
+                .onFailure {
+                    println("222222222222222222222222 ${it.message}")
                 }
         }
     }
