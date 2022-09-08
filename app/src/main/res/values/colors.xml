@@ -12,4 +12,7 @@
     <color name="status_bar_color">#FFFFFFFF</color>
     <!--Search view-->
     <color name="search_view_background">#F7F7F8</color>
+
+    <!--Card View-->
+    <color name="card_view_background">#BDBDBD</color>
 </resources>

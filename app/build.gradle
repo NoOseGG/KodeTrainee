@@ -49,6 +49,9 @@ dependencies {
     kapt "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.4.2"
     implementation "androidx.fragment:fragment-ktx:1.4.0"
 
+    //coil
+    implementation "io.coil-kt:coil:2.0.0-rc03"
+
     def hilt_version = "2.42"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
