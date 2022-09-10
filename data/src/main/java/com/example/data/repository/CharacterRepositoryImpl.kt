@@ -9,21 +9,9 @@ class CharacterRepositoryImpl @Inject constructor(
     private val rickAndMortyService: RickAndMortyService
 ) : CharacterRepository {
 
-    override suspend fun characters(): Result<Characters> {
+    override suspend fun characters(page: Int, species: String, searchBy: String): Result<Characters> {
         return runCatching {
-            rickAndMortyService.characters()
-        }
-    }
-
-    override suspend fun speciesCharacters(species: String): Result<Characters> {
-        return runCatching {
-            rickAndMortyService.speciesCharacters(species)
-        }
-    }
-
-    override suspend fun searchCharacters(query: String): Result<Characters> {
-        return runCatching {
-            rickAndMortyService.searchCharacters(query)
+            rickAndMortyService.speciesCharacters(page, species, searchBy)
         }
     }
 }

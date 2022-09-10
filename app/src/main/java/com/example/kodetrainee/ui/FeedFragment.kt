@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.navigation.fragment.findNavController
 
 @AndroidEntryPoint
 class FeedFragment : Fragment() {
@@ -26,7 +27,10 @@ class FeedFragment : Fragment() {
     private val binding get() = requireNotNull(_binding)
     private val viewModel: FeedViewModel by viewModels()
     private val adapter by lazy {
-        CharacterAdapter()
+        CharacterAdapter() {
+            val action = FeedFragmentDirections.actionFeedFragmentToCharacterDetailsFragment(it.id)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onCreateView(
@@ -43,10 +47,8 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initial()
-        viewModel.allCharacters()
-        viewModel.charactersFlow.onEach { characters ->
-            println(characters)
-            adapter.submitList(characters)
+        viewModel.characters.onEach { characters ->
+            adapter.submitData(characters)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
@@ -55,23 +57,16 @@ class FeedFragment : Fragment() {
                 TODO("Not yet implemented")
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.searchCharacters(newText.toString())
+            override fun onQueryTextChange(searchBy: String?): Boolean {
+                viewModel.setSearchBy(searchBy.toString())
+                showSearchCharacters(SPECIES_ALL)
                 return false
             }
-
         })
-
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when(tab?.position) {
-                    ALL -> showAllCharacters()
-                    HUMAN -> showSpeciesCharacters(SPECIES_HUMAN)
-                    ALIEN -> showSpeciesCharacters(SPECIES_ALIEN)
-                    MYTHOLOGICAL -> showSpeciesCharacters(SPECIES_MYTHOLOGICAL)
-                    UNKNOWN -> showSpeciesCharacters(SPECIES_UNKNOWN)
-                }
+                if(tab?.position != null) checkSpecies(tab.position)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -79,13 +74,14 @@ class FeedFragment : Fragment() {
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-
+                if(tab?.position != null) checkSpecies(tab.position)
             }
 
         })
 
         binding.swipeRefresh.setOnRefreshListener {
             showToast("Data refreshed")
+            adapter.refresh()
             binding.swipeRefresh.isRefreshing = false
         }
     }
@@ -98,12 +94,25 @@ class FeedFragment : Fragment() {
         }
     }
 
-    private fun showAllCharacters() {
-        viewModel.allCharacters()
+    private fun checkSpecies(species: Int) {
+        when(species) {
+            ALL -> showSpeciesCharacters(SPECIES_ALL)
+            HUMAN -> showSpeciesCharacters(SPECIES_HUMAN)
+            ALIEN -> showSpeciesCharacters(SPECIES_ALIEN)
+            MYTHOLOGICAL -> showSpeciesCharacters(SPECIES_MYTHOLOGICAL)
+            UNKNOWN -> showSpeciesCharacters(SPECIES_UNKNOWN)
+        }
     }
 
     private fun showSpeciesCharacters(species: String) {
-        viewModel.speciesCharacters(species)
+        viewModel.setSpecies(species)
+        viewModel.setSearchBy(SPECIES_ALL)
+        adapter.refresh()
+    }
+
+    private fun showSearchCharacters(species: String) {
+        viewModel.setSpecies(SPECIES_ALL)
+        adapter.refresh()
     }
 
     override fun onDestroyView() {
@@ -122,6 +131,7 @@ class FeedFragment : Fragment() {
         const val MYTHOLOGICAL = 3
         const val UNKNOWN = 4
 
+        const val SPECIES_ALL = ""
         const val SPECIES_HUMAN = "Human"
         const val SPECIES_ALIEN = "Alien"
         const val SPECIES_MYTHOLOGICAL = "Mythological"
