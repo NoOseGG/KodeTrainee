@@ -20,4 +20,8 @@
     <!--fragment character details-->
     <color name="tv_character_details_content_color">#000000</color>
     <color name="constrain_layout_top_background_color">#D8D8D8</color>
+
+    <!--fragment error-->
+    <color name="fragment_error_text_color_header">#050510</color>
+    <color name="fragment_error_text_color_try_again">#6534FF</color>
 </resources>
