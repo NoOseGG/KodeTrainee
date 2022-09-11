@@ -1,6 +1,6 @@
 package com.example.data.retrofit
 
-import com.example.domain.CharacterDetails
+import com.example.domain.model.CharacterDetails
 import com.example.domain.model.Characters
 import retrofit2.http.GET
 import retrofit2.http.Path

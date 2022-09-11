@@ -2,4 +2,9 @@
     <string name="app_name">KodeTrainee</string>
 
     <string name="search_view_query_hint">Введите имя, тег, почту...</string>
+
+    <!--Fragment Details-->
+    <string name="fragment_details_status">Status: %1$s</string>
+    <string name="fragment_details_type">Type: %1$s</string>
+    <string name="fragment_details_gender">Gender: %1$s</string>
 </resources>

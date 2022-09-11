@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyProject/KodeTrainee/app/src/main/res/drawable/ic_gender.xml" value="0.1755" />
         <entry key="..\:/MyProject/KodeTrainee/app/src/main/res/drawable/ic_search_view_list.xml" value="0.247" />
+        <entry key="..\:/MyProject/KodeTrainee/app/src/main/res/drawable/ic_status.xml" value="0.1755" />
+        <entry key="..\:/MyProject/KodeTrainee/app/src/main/res/drawable/ic_type.xml" value="0.1755" />
         <entry key="..\:/MyProject/KodeTrainee/app/src/main/res/drawable/search_view_background.xml" value="0.247" />
         <entry key="..\:/MyProject/KodeTrainee/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/MyProject/KodeTrainee/app/src/main/res/layout/fragment_character_details.xml" value="0.2" />

@@ -1,7 +1,6 @@
 package com.example.domain.repository
 
-import com.example.domain.CharacterDetails
-import com.example.domain.model.Character
+import com.example.domain.model.CharacterDetails
 
 interface CharacterDetailsRepository {
 

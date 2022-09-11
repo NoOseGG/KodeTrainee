@@ -3,8 +3,7 @@ package com.example.kodetrainee.ui.details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repository.CharacterDetailsRepositoryImpl
-import com.example.domain.CharacterDetails
-import com.example.domain.repository.CharacterDetailsRepository
+import com.example.domain.model.CharacterDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow

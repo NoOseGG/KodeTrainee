@@ -1,7 +1,7 @@
 package com.example.data.repository
 
 import com.example.data.retrofit.RickAndMortyService
-import com.example.domain.CharacterDetails
+import com.example.domain.model.CharacterDetails
 import com.example.domain.repository.CharacterDetailsRepository
 import javax.inject.Inject
 import javax.inject.Singleton
