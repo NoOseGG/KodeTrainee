@@ -19,6 +19,11 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingData
+import androidx.paging.PagingSource
+import com.example.kodetrainee.R
+import com.example.kodetrainee.adapter.DefaultLoadStateAdapter
+import com.example.kodetrainee.model.LceState
 
 @AndroidEntryPoint
 class FeedFragment : Fragment() {
@@ -26,11 +31,17 @@ class FeedFragment : Fragment() {
     private var _binding: FragmentFeedBinding? = null
     private val binding get() = requireNotNull(_binding)
     private val viewModel: FeedViewModel by viewModels()
-    private val adapter by lazy {
+    private val adapterCharacter by lazy {
         CharacterAdapter() {
             val action = FeedFragmentDirections.actionFeedFragmentToCharacterDetailsFragment(it.id)
             findNavController().navigate(action)
         }
+    }
+    private val errorAdapter = DefaultLoadStateAdapter() {
+        findNavController().navigate(R.id.action_feedFragment_to_errorFragment)
+    }
+    private val adapter by lazy {
+        adapterCharacter.withLoadStateFooter(errorAdapter)
     }
 
     override fun onCreateView(
@@ -48,7 +59,7 @@ class FeedFragment : Fragment() {
 
         initial()
         viewModel.characters.onEach { characters ->
-            adapter.submitData(characters)
+            adapterCharacter.submitData(characters)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
@@ -81,7 +92,7 @@ class FeedFragment : Fragment() {
 
         binding.swipeRefresh.setOnRefreshListener {
             showToast("Data refreshed")
-            adapter.refresh()
+            adapterCharacter.refresh()
             binding.swipeRefresh.isRefreshing = false
         }
     }
@@ -107,12 +118,12 @@ class FeedFragment : Fragment() {
     private fun showSpeciesCharacters(species: String) {
         viewModel.setSpecies(species)
         viewModel.setSearchBy(SPECIES_ALL)
-        adapter.refresh()
+        adapterCharacter.refresh()
     }
 
     private fun showSearchCharacters(species: String) {
         viewModel.setSpecies(SPECIES_ALL)
-        adapter.refresh()
+        adapterCharacter.refresh()
     }
 
     override fun onDestroyView() {

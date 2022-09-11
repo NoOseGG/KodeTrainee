@@ -35,18 +35,6 @@ class FeedViewModel @Inject constructor(
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    fun allCharacters() {
-        viewModelScope.launch(Dispatchers.IO) {
-            characterRepository.characters(1)
-                .onSuccess {
-                    println(it.results)
-                    charactersFlow.tryEmit(it.results)
-                }
-                .onFailure {
-                }
-        }
-    }
-
     fun setSpecies(species: String) {
         this.species = species
     }

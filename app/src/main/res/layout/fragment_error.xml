@@ -16,22 +16,23 @@
         android:textColor="@color/fragment_error_text_color_header"
         android:textSize="17sp"
         android:textStyle="bold"
-        android:text="Какой-то сверхразум все сломал"/>
+        android:text="@string/fragment_error_someone_broke_everything"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:textSize="16sp"
-        android:text="Постараемся быстро починить"/>
+        android:text="@string/fragment_error_someone_try_to_fix"/>
 
     <TextView
+        android:id="@+id/tv_try_again"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@color/fragment_error_text_color_try_again"
-        android:text="Попробовать снова"/>
+        android:text="@string/fragment_error_try_again"/>
 
 </LinearLayout>

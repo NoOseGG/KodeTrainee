@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">KodeTrainee</string>
 
-    <string name="search_view_query_hint">Введите имя, тег, почту...</string>
+    <string name="search_view_query_hint">Введите имя персонажа...</string>
 
     <!--Fragment Details-->
     <string name="fragment_details_status">Status: %1$s</string>
     <string name="fragment_details_type">Type: %1$s</string>
     <string name="fragment_details_gender">Gender: %1$s</string>
+
+    <!--Fragment Error-->
+    <string name="fragment_error_someone_broke_everything">Какой-то сверхразум все сломал</string>
+    <string name="fragment_error_someone_try_to_fix">Постараемся быстро починить</string>
+    <string name="fragment_error_try_again">Попробовать снова</string>
 </resources>

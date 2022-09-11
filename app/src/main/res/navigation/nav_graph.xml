@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_feedFragment_to_characterDetailsFragment"
             app:destination="@id/characterDetailsFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_errorFragment"
+            app:destination="@id/errorFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterDetailsFragment"
@@ -22,5 +25,14 @@
         <argument
             android:name="characterId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="com.example.kodetrainee.ui.error.ErrorFragment"
+        android:label="ErrorFragment"
+        tools:layout="@layout/fragment_error" >
+        <action
+            android:id="@+id/action_errorFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
 </navigation>
